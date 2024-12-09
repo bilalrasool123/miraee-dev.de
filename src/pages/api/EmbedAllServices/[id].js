@@ -6,7 +6,7 @@ import html from 'remark-html';
 
 const getServicesDirectory = (language) => {
     // console.log(language)
-  return path.join(process.cwd(), `src/locales/${language}/embedded-services`);
+  return path.join(process.cwd(), `src/locales/${language || 'de'}/embedded-services`);
 };
 
 

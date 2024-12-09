@@ -6,7 +6,7 @@ import html from 'remark-html';
 
 const getServicesDirectory = (language) => {
     // console.log(language)
-  return path.join(process.cwd(), `src/locales/${language}/digital-services`);
+  return path.join(process.cwd(), `src/locales/${language || 'de'}/digital-services`);
 };
 
 export async function getServiceData(id, language) {

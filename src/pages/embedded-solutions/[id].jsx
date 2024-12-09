@@ -153,7 +153,7 @@ const ServiceDetail = () => {
                             href={`/embedded-solutions/${item.id}`}
                           >
                             <span data-splitting data-onovo-scroll>
-                              {item.title}
+                              {item.title || id}
                             </span>
                           </Link>
                         </li>

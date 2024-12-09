@@ -96,7 +96,7 @@ const ServiceDetail = () => {
     title: service.title // Store the service title
   }));
 
-  // console.log(language, postData, serviceTitles)
+  console.log(language, postData, serviceTitles)
 
 
   return (

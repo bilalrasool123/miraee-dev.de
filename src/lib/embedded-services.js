@@ -6,7 +6,7 @@ import html from 'remark-html';
 
 // Function to get the path for the service files based on the selected language
 const getServicesDirectory = (language) => {
-  return path.join(process.cwd(), `src/locales/${language}/embedded-services`);
+  return path.join(process.cwd(), `src/locales/${language || 'de'}/embedded-services`);
 };
 
 // Function to get all services data sorted by id

@@ -33,7 +33,11 @@ const ServiceDetail = () => {
     
     const fetchServiceData = async () => {
       try {
-        const res = await fetch(`/api/EmbedServiceData/${id}?language=${language || 'en'}`);
+        const res = await fetch(`/api/EmbedServiceData/${id}?language=${language || 'en'}`, {
+          method: 'GET', // Optional if the default method is GET
+          cache: 'no-store'
+        });
+        
         if (!res.ok) {
           throw new Error('Failed to fetch data');
         }
@@ -52,7 +56,11 @@ const ServiceDetail = () => {
     
     const fetchServiceData = async () => {
       try {
-        const res = await fetch(`/api/EmbedAllServices/${id}?language=${language || 'en'}`);
+        const res = await fetch(`/api/EmbedAllServices/${id}?language=${language || 'en'}`, {
+          method: 'GET', // Optional if the default method is GET
+          cache: 'no-store'
+        });
+        
         if (!res.ok) {
           throw new Error('Failed to fetch data');
         }

@@ -379,8 +379,8 @@ export async function getServerSideProps(context) {
 
   try {
     const [postRes, servicesRes] = await Promise.all([
-      fetch(`https://miraee-dev-de.vercel.app//api/EmbedServiceData/${id}?language=${language}`),
-      fetch(`https://miraee-dev-de.vercel.app//api/EmbedAllServices/${id}?language=${language}`),
+      fetch(`https://miraee-dev-de.vercel.app/api/EmbedServiceData/${id}?language=${language}`),
+      fetch(`https://miraee-dev-de.vercel.app/api/EmbedAllServices/${id}?language=${language}`),
     ]);
 
     if (!postRes.ok || !servicesRes.ok) {

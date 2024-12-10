@@ -17,8 +17,8 @@ import { useEffect, useState } from "react";
 
 
 const ServiceDetail = ({postData, services}) => {
-  // const [postData, setPostData] = useState(null);
-  // const [services, setServices] = useState(null);
+  const [postData, setPostData] = useState(null);
+  const [services, setServices] = useState(null);
   const [error, setError] = useState(null);
   const [res1, setRes] = useState(null)
   const router = useRouter();

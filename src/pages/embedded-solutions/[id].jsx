@@ -28,51 +28,51 @@ const ServiceDetail = ({postData, services}) => {
 
 
 
-  // useEffect(() => {
-  //   if (!id) return; // Avoid running the fetch when id is not available
+  useEffect(() => {
+    if (!id) return; // Avoid running the fetch when id is not available
     
-  //   const fetchServiceData = async () => {
-  //     try {
-  //       const res = await fetch(`/api/EmbedServiceData/${id}?language=${language || 'en'}`, {
-  //         method: 'GET', // Optional if the default method is GET
-  //         cache: 'no-store'
-  //       });
+    const fetchServiceData = async () => {
+      try {
+        const res = await fetch(`/api/EmbedServiceData/${id}?language=${language || 'en'}`, {
+          method: 'GET', // Optional if the default method is GET
+          cache: 'no-store'
+        });
         
-  //       if (!res.ok) {
-  //         throw new Error('Failed to fetch data');
-  //       }
-  //       const data = await res.json();
-  //       setPostData(data);
-  //     } catch (error) {
-  //       setError(error.message);
-  //     }
-  //   };
+        if (!res.ok) {
+          throw new Error('Failed to fetch data');
+        }
+        const data = await res.json();
+        setPostData(data);
+      } catch (error) {
+        setError(error.message);
+      }
+    };
 
-  //   fetchServiceData();
-  // }, [id, language]); // Dependency on id and language
+    fetchServiceData();
+  }, [id, language]); // Dependency on id and language
 
-  // useEffect(() => {
-  //   if (!id) return; // Avoid running the fetch when id is not available
+  useEffect(() => {
+    if (!id) return; // Avoid running the fetch when id is not available
     
-  //   const fetchServiceData = async () => {
-  //     try {
-  //       const res = await fetch(`/api/EmbedAllServices/${id}?language=${language || 'en'}`, {
-  //         method: 'GET', // Optional if the default method is GET
-  //         cache: 'no-store'
-  //       });
+    const fetchServiceData = async () => {
+      try {
+        const res = await fetch(`/api/EmbedAllServices/${id}?language=${language || 'en'}`, {
+          method: 'GET', // Optional if the default method is GET
+          cache: 'no-store'
+        });
         
-  //       if (!res.ok) {
-  //         throw new Error('Failed to fetch data');
-  //       }
-  //       const data = await res.json();
-  //       setServices(data);
-  //     } catch (error) {
-  //       setError(error.message);
-  //     }
-  //   };
+        if (!res.ok) {
+          throw new Error('Failed to fetch data');
+        }
+        const data = await res.json();
+        setServices(data);
+      } catch (error) {
+        setError(error.message);
+      }
+    };
 
-  //   fetchServiceData();
-  // }, [id, language]); // Dependency on id and language
+    fetchServiceData();
+  }, [id, language]); // Dependency on id and language
 
   let prev_id,
     next_id,

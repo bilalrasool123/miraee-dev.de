@@ -16,9 +16,9 @@ import { useEffect, useState } from "react";
 
 
 
-const ServiceDetail = () => {
-  const [postData, setPostData] = useState(null);
-  const [services, setServices] = useState(null);
+const ServiceDetail = ({postData, services}) => {
+  // const [postData, setPostData] = useState(null);
+  // const [services, setServices] = useState(null);
   const [error, setError] = useState(null);
   const [res1, setRes] = useState(null)
   const router = useRouter();
@@ -28,51 +28,51 @@ const ServiceDetail = () => {
 
 
 
-  useEffect(() => {
-    if (!id) return; // Avoid running the fetch when id is not available
+  // useEffect(() => {
+  //   if (!id) return; // Avoid running the fetch when id is not available
     
-    const fetchServiceData = async () => {
-      try {
-        const res = await fetch(`/api/EmbedServiceData/${id}?language=${language || 'en'}`, {
-          method: 'GET', // Optional if the default method is GET
-          cache: 'no-store'
-        });
+  //   const fetchServiceData = async () => {
+  //     try {
+  //       const res = await fetch(`/api/EmbedServiceData/${id}?language=${language || 'en'}`, {
+  //         method: 'GET', // Optional if the default method is GET
+  //         cache: 'no-store'
+  //       });
         
-        if (!res.ok) {
-          throw new Error('Failed to fetch data');
-        }
-        const data = await res.json();
-        setPostData(data);
-      } catch (error) {
-        setError(error.message);
-      }
-    };
+  //       if (!res.ok) {
+  //         throw new Error('Failed to fetch data');
+  //       }
+  //       const data = await res.json();
+  //       setPostData(data);
+  //     } catch (error) {
+  //       setError(error.message);
+  //     }
+  //   };
 
-    fetchServiceData();
-  }, [id, language]); // Dependency on id and language
+  //   fetchServiceData();
+  // }, [id, language]); // Dependency on id and language
 
-  useEffect(() => {
-    if (!id) return; // Avoid running the fetch when id is not available
+  // useEffect(() => {
+  //   if (!id) return; // Avoid running the fetch when id is not available
     
-    const fetchServiceData = async () => {
-      try {
-        const res = await fetch(`/api/EmbedAllServices/${id}?language=${language || 'en'}`, {
-          method: 'GET', // Optional if the default method is GET
-          cache: 'no-store'
-        });
+  //   const fetchServiceData = async () => {
+  //     try {
+  //       const res = await fetch(`/api/EmbedAllServices/${id}?language=${language || 'en'}`, {
+  //         method: 'GET', // Optional if the default method is GET
+  //         cache: 'no-store'
+  //       });
         
-        if (!res.ok) {
-          throw new Error('Failed to fetch data');
-        }
-        const data = await res.json();
-        setServices(data);
-      } catch (error) {
-        setError(error.message);
-      }
-    };
+  //       if (!res.ok) {
+  //         throw new Error('Failed to fetch data');
+  //       }
+  //       const data = await res.json();
+  //       setServices(data);
+  //     } catch (error) {
+  //       setError(error.message);
+  //     }
+  //   };
 
-    fetchServiceData();
-  }, [id, language]); // Dependency on id and language
+  //   fetchServiceData();
+  // }, [id, language]); // Dependency on id and language
 
   let prev_id,
     next_id,
@@ -104,7 +104,7 @@ const ServiceDetail = () => {
     title: service.title // Store the service title
   }));
 
-  console.log(language, postData, serviceTitles)
+  console.log(language, postData, services)
 
 
   return (
@@ -373,40 +373,32 @@ const ServiceDetail = () => {
 export default ServiceDetail;
 
 
-// export async function getStaticPaths() {
-//   const languages = ['en', 'de']; // Add more languages as needed
-  
-//   const allPaths = [];
+export async function getServerSideProps(context) {
+  const { id } = context.params;
+  const language = context.query.language || "en";
 
-//   // Loop over each language and generate paths
-//   for (const language of languages) {
-//     const paths = getAllServicesIds(language);
-//     allPaths.push(...paths); // Combine the paths
-//   }
+  try {
+    const [postRes, servicesRes] = await Promise.all([
+      fetch(`${process.env.API_BASE_URL}/api/EmbedServiceData/${id}?language=${language}`),
+      fetch(`${process.env.API_BASE_URL}/api/EmbedAllServices/${id}?language=${language}`),
+    ]);
 
-//   return {
-//     paths: allPaths,
-//     fallback: false,
-//   };
-// }
+    if (!postRes.ok || !servicesRes.ok) {
+      throw new Error("Failed to fetch data");
+    }
 
-// export async function getStaticProps({ params, locale }) {
-//   const language = locale || params.language || "en";  // Use locale or language from params, default to 'en'
+    const postData = await postRes.json();
+    const services = await servicesRes.json();
 
-//   console.log(locale,params.language)
-  
-//   const postData = await getServiceData(params.id, language);
-//   const allServices = getSortedServicesData(language);
-//   const serviceDetail = Data.items.find((item) => item.id === params.id);
-
-  // return {
-  //   props: {
-  //     serviceDetail,
-  //     postData,
-  //     services: allServices,
-  //     language, // Pass language to the page as a prop
-  //   },
-  // };
-// }
-
-
+    return {
+      props: {
+        postData,
+        services,
+      },
+    };
+  } catch (error) {
+    return {
+      notFound: true, // Render a 404 page if there's an error
+    };
+  }
+}

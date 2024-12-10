@@ -366,7 +366,7 @@ export default ServiceDetail;
 
 
 // export async function getStaticPaths() {
-//   const languages = ['en', 'de']; // Add more languages as needed
+//   const languages = ['en', 'de']; // Add more languages as needed       
   
 //   const allPaths = [];
 

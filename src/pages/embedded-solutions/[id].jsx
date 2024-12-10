@@ -16,7 +16,7 @@ import { useEffect, useState } from "react";
 
 
 
-const ServiceDetail = ({postData, services}) => {
+const ServiceDetail = () => {
   const [postData, setPostData] = useState(null);
   const [services, setServices] = useState(null);
   const [error, setError] = useState(null);

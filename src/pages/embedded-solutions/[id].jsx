@@ -22,7 +22,7 @@ const ServiceDetail = () => {
   const [error, setError] = useState(null);
   const [res1, setRes] = useState(null)
   const router = useRouter();
-  const { id } = router.query; // Get the dynamic parameters
+  const { id } = router.query; // Get the dynamic parameters 
 
   const { t, i18n,language } = useTranslate(); // Ensure you have access to i18n or equivalent
 
